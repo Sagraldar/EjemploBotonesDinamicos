@@ -23,11 +23,11 @@
         Dim MargenSup As Integer = 2
 
         Dim ancho As Short = (Contenedor.Width - nBotonesFila * 2) / nBotonesFila
-        Dim alto As Short = (Contenedor.Height - nBotonesFila * 2) / nBotonesFila
+        Dim alto As Short = (Contenedor.Height - nBotonesFila * 2) / (nBotones / nBotonesFila)
 
         Dim fila As Short = 0
 
-        For indice As Integer = 0 To nBOtones
+        For indice As Integer = 0 To nBotones - 1
             'creamos el boton y le asignamos el evento click
             Dim boton As New Button
             AddHandler boton.Click, AddressOf Me.eventoBotonesDinamicos_Click
