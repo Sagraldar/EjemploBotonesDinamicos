@@ -16,16 +16,19 @@
     End Property
 
     Public Sub CrearBotonesPanel(ByVal Contenedor As Control, _
-                                 ByVal nBotones As Short, ByVal nBotonesFila As Short)
+                                 ByVal nBotones As Short, ByVal nColumnas As Short)
         'esto es un bucle en plan guarro, no salen bien alineados, pero porque lo he hecho muy rápido.
 
         Dim margenIz As Integer = 2
         Dim MargenSup As Integer = 2
 
-        Dim ancho As Short = (Contenedor.Width - nBotonesFila * 2) / nBotonesFila
-        Dim alto As Short = (Contenedor.Height - nBotonesFila * 2) / (nBotones / nBotonesFila)
+        Dim nFilas As Short = (nBotones / nColumnas)
 
-        Dim fila As Short = 0
+        Dim ancho As Short = (Contenedor.Width - nColumnas * 2 - 4) / nColumnas
+        Dim alto As Short = (Contenedor.Height - nFilas * 2 - 4) / nFilas
+
+        Dim fila As Short = 1
+        Dim columna As Short = 1
 
         For indice As Integer = 0 To nBotones - 1
             'creamos el boton y le asignamos el evento click
@@ -43,13 +46,14 @@
             'le damos a cada uno un texto
             boton.Text = "boton" & (indice + 1).ToString()
 
-            'hacemos que cada 8 botones haya un salto de linea
-            If indice Mod nBotonesFila = 0 Then
-                MargenSup = 2 * (fila + 1) + alto * fila
-                margenIz = 2
+            columna += 1
+            margenIz += 2 + ancho
+
+            If columna > nColumnas Then
+                columna = 1
                 fila += 1
-            Else
-                margenIz += ancho + 2
+                MargenSup += 2 + alto
+                margenIz = 2
             End If
 
             '   AGREGAMOS LOS BOTONES DENTRO DEL CONTENEDOR
@@ -72,5 +76,4 @@
             indice += 1
         Next
     End Sub
-
 End Class
